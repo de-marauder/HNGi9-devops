@@ -1,0 +1,21 @@
+version: "3"
+services:
+  api:
+    image: demarauder/hng-devops-stage2-api:v2
+    expose:
+      - 8080
+    container_name: api
+    networks:
+      - client-api-net
+    
+  frontend:
+    image: demarauder/hng-devops-stage2-frontend:v1
+    container_name: frontend
+    networks:
+      - client-api-net
+    ports:
+      - "3000:80"
+
+networks:
+  client-api-net:
+    driver: bridge
