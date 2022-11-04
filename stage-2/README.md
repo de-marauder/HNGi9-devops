@@ -14,29 +14,27 @@ docker compose up
 ```
 to run the [docker-compose](./docker-compose.yml) file.
 
-## Backend development workflow
+An NGINX reverse-proxy is set up to redirect all calls to port 80 to our frontend container port 3000.
+It looks like this,
+```
+server{
+    listen 80;
+    server_name _;
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
 
-```sh
-virtualenv env
-source env/bin/activate
-pip install -r requirements.txt
-python manage.py runserver
+        proxy_pass http://<public IP address of frontend container on local network>:3000;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+    }
+}
+
 ```
 
-## Frontend development workflow
+A successfull result looks like this,
+![home-page](https://user-images.githubusercontent.com/65220956/200078730-4378badb-45e0-4574-a49e-e7d04e90ae9a.png)
 
-You are to update your name in ./frontend/components/App.js
-
-```json
-npm i
-npm start
-```
-
-## For deploying
-
-```json
-npm run build
-```
-
-It should look like this if successful
-<img width="1440" alt="Screen Shot 2022-11-02 at 19 30 22" src="https://user-images.githubusercontent.com/66765302/199572589-43bd05b7-95a6-455c-bc25-3cd437c95339.png">
