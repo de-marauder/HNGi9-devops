@@ -35,6 +35,6 @@ server{
 
 ```
 
-A successfull result looks like this,
+## Result
 ![home-page](https://user-images.githubusercontent.com/65220956/200078730-4378badb-45e0-4574-a49e-e7d04e90ae9a.png)
 
